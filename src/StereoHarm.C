@@ -114,13 +114,13 @@ StereoHarm::out (float *smpsl, float *smpsr)
     for (i = 0; i < nPERIOD; i++) {
 
 
-        outil[i] = smpsl[i] * (1.0f - lrcross) + smpsr[i] * lrcross;
+        outil[i] = smpsl[i];
         if (outil[i] > 1.0)
             outil[i] = 1.0f;
         if (outil[i] < -1.0)
             outil[i] = -1.0f;
 
-        outir[i] = smpsr[i] * (1.0f - lrcross) + smpsl[i] * lrcross;
+        outir[i] = smpsr[i];
         if (outir[i] > 1.0)
             outir[i] = 1.0f;
         if (outir[i] < -1.0)
@@ -155,8 +155,8 @@ StereoHarm::out (float *smpsl, float *smpsr)
 
 
     for (i = 0; i < PERIOD; i++) {
-        efxoutl[i] = templ[i] * gainl;
-        efxoutr[i] = tempr[i] * gainr;
+        efxoutl[i] = (templ[i] * (1.0f - lrcross) + tempr[i] * lrcross)* gainl;
+        efxoutr[i] = (tempr[i] * (1.0f - lrcross) + templ[i] * lrcross)* gainr;
     }
 
 
