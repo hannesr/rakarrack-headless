@@ -33,15 +33,19 @@ RKR::Message (int prio, const char *labelwin, const char *message_text)
 {
     if((mess_dis) && (prio==0)) return(0);
 
-    Fl_Widget *w = fl_message_icon ();
+    if (gui) {
+        Fl_Widget *w = fl_message_icon ();
 
-    Fl_Image *a = new Fl_Pixmap (icono_rakarrack_32x32_xpm);
-    w->color (FL_WHITE);
-    w->label ("");
-    w->image (a);
-    w->align (FL_ALIGN_TOP | FL_ALIGN_INSIDE);
-    w->parent ()->copy_label (labelwin);
-    fl_message ("%s",message_text);
+        Fl_Image *a = new Fl_Pixmap (icono_rakarrack_32x32_xpm);
+        w->color (FL_WHITE);
+        w->label ("");
+        w->image (a);
+        w->align (FL_ALIGN_TOP | FL_ALIGN_INSIDE);
+        w->parent ()->copy_label (labelwin);
+        fl_message ("%s",message_text);
+    } else {
+        fprintf(stderr, "%s - %s\n", labelwin, message_text);
+    }
     return (0);
 
 };
