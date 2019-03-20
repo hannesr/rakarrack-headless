@@ -162,6 +162,12 @@ main (int argc, char *argv[])
 
     RKR rkr;
 
+    if(needtodump) {
+        rkr.dump_preset_names ();
+        exit(0);
+    }
+
+
     if (nojack) {
         show_help ();
         rkr.Message (1,"rakarrack error",
@@ -169,12 +175,6 @@ main (int argc, char *argv[])
         return (0);
     }
 
-
-
-    if(needtodump) {
-        rkr.dump_preset_names ();
-        exit(1);
-    }
 
 
     JACKstart (&rkr, rkr.jackclient);
